@@ -15,3 +15,19 @@ export const EntrySchema = NewEntrySchema.extend({
 
 export type NewEntry = z.infer<typeof NewEntrySchema>;
 export type Entry = z.infer<typeof EntrySchema>;
+
+// Zod schema for creating a new chapter
+export const NewChapterSchema = z.object({
+  user_id: z.string().uuid(),
+  narrative: z.string().min(1),
+  themes: z.array(z.string()).min(1),
+});
+
+// Zod schema for a chapter as returned from the database
+export const ChapterSchema = NewChapterSchema.extend({
+  id: z.string().uuid(),
+  created_at: z.string().datetime(),
+});
+
+export type NewChapter = z.infer<typeof NewChapterSchema>;
+export type Chapter = z.infer<typeof ChapterSchema>;
