@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/src/lib/supabase/server";
+import { RecorderWrapper } from "@/src/components/RecorderWrapper";
 
 /**
  * Dashboard — the main journaling screen.
@@ -46,27 +47,13 @@ export default async function DashboardPage() {
         </p>
       </section>
 
-      {/* ── Recorder placeholder ────────────────────────────────── */}
-      {/* Issue #2 will replace this with <AudioRecorder /> */}
+      {/* ── Recorder ────────────────────────────────────────────── */}
+      {/* AudioRecorder is a Client Component — wrapped to avoid RSC boundary error */}
       <section
         aria-label="Voice recorder"
         className="flex flex-col items-center gap-6 py-12"
       >
-        <button
-          id="record-button-placeholder"
-          type="button"
-          aria-label="Start recording"
-          className="btn-primary"
-          style={{ minWidth: "160px" }}
-        >
-          Record (60s)
-        </button>
-        <p
-          className="text-label-sm"
-          style={{ color: "var(--color-text-muted)" }}
-        >
-          Tap to speak. Auto-stops at 60 seconds.
-        </p>
+        <RecorderWrapper />
       </section>
 
       <hr className="rule mb-12" />

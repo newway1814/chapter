@@ -6,7 +6,7 @@
  * client is never imported directly in UI or API files.
  */
 
-import type { Entry, NewEntry } from "@/src/types/entry";
+import type { Entry, NewEntry } from "../types/entry";
 import type { SupabaseClient } from "@supabase/supabase-js";
 
 // ---------------------------------------------------------------------------
