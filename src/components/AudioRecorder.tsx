@@ -101,7 +101,7 @@ export const AudioRecorder = ({ onRecordingComplete, onError }: AudioRecorderPro
     }
   }, [syncState, startTimer, onError]);
 
-  const handleStop = useCallback(() => {
+  const handleStop = useCallback(async () => {
     if (
       mediaRecorderRef.current !== null &&
       mediaRecorderRef.current.state !== "inactive"
@@ -112,13 +112,39 @@ export const AudioRecorder = ({ onRecordingComplete, onError }: AudioRecorderPro
     syncState();
     stopTimer();
 
-    // Simulate transcription: in a real flow, the parent sends the audio
-    // blob to /api/transcribe and calls onRecordingComplete with the result.
-    // For now the component signals the parent with the collected blob.
-    const blob = new Blob(chunksRef.current, { type: "audio/webm" });
-    // The parent (app/page.tsx) will POST this to /api/transcribe (Issue #3).
-    onRecordingComplete(`[blob:${blob.size}]`); // placeholder until Issue #3 wires the API
-  }, [syncState, stopTimer, onRecordingComplete]);
+    try {
+      const blob = new Blob(chunksRef.current, { type: "audio/webm" });
+      const formData = new FormData();
+      formData.append("file", blob);
+
+      const res = await fetch("/api/transcribe", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => null);
+        throw new Error(errorData?.error || "Failed to transcribe audio");
+      }
+
+      const data = await res.json();
+      const transcript = data.transcript;
+
+      // Update state machine with the transcript
+      machine.current.onComplete(transcript);
+      syncState();
+
+      // Only notify parent if the machine successfully transitioned to 'complete'
+      if (machine.current.getState().status === "complete") {
+        onRecordingComplete(transcript);
+      }
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Transcription failed";
+      machine.current.onError(message);
+      syncState();
+      onError?.(message);
+    }
+  }, [syncState, stopTimer, onRecordingComplete, onError]);
 
   const handleReset = useCallback(() => {
     machine.current.reset();
