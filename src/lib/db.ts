@@ -6,7 +6,7 @@
  * client is never imported directly in UI or API files.
  */
 
-import type { Entry, NewEntry } from "../types/entry";
+import type { Entry, NewEntry, Chapter, NewChapter } from "../types/entry";
 import type { SupabaseClient } from "@supabase/supabase-js";
 
 // ---------------------------------------------------------------------------
@@ -106,4 +106,28 @@ export const getEntriesInWindow = async (
   }
 
   return (data ?? []) as Entry[];
+};
+
+// ---------------------------------------------------------------------------
+// Chapters
+// ---------------------------------------------------------------------------
+
+/**
+ * Persist a generated Chapter.
+ */
+export const saveChapter = async (
+  supabase: SupabaseClient,
+  chapter: NewChapter
+): Promise<Chapter> => {
+  const { data, error } = await supabase
+    .from("chapters")
+    .insert(chapter)
+    .select()
+    .single();
+
+  if (error !== null) {
+    throw new Error(`Failed to save chapter: ${error.message}`);
+  }
+
+  return data as Chapter;
 };
