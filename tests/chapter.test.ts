@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { isChapterEligible } from "../src/lib/chapter";
+import { isChapterEligible, buildChapterPrompt, parseChapterResponse } from "../src/lib/chapter";
 import type { Entry } from "../src/types/entry";
 
 const createMockEntry = (daysAgo: number): Entry => {
@@ -38,3 +38,70 @@ describe("isChapterEligible", () => {
     expect(isChapterEligible([...validEntries, oldEntry])).toBe(false);
   });
 });
+
+describe("buildChapterPrompt", () => {
+  it("includes all entry transcripts with their dates", () => {
+    const entries = [
+      createMockEntry(1),
+      createMockEntry(2)
+    ];
+    
+    const prompt = buildChapterPrompt(entries);
+    expect(prompt).toContain(entries[0].transcript);
+    expect(prompt).toContain(entries[1].transcript);
+  });
+
+  it("instructs the model to return JSON with narrative and themes", () => {
+    const prompt = buildChapterPrompt([]);
+    expect(prompt).toContain("narrative");
+    expect(prompt).toContain("themes");
+  });
+});
+
+describe("parseChapterResponse", () => {
+  it("parses valid JSON with narrative and themes", () => {
+    const raw = JSON.stringify({
+      narrative: "This month you focused on...",
+      themes: ["growth", "resilience"]
+    });
+
+    const result = parseChapterResponse(raw);
+    expect(result).not.toBeNull();
+    expect(result?.narrative).toBe("This month you focused on...");
+    expect(result?.themes).toEqual(["growth", "resilience"]);
+  });
+
+  it("handles markdown code block wrappers gracefully", () => {
+    const raw = `\`\`\`json\n{"narrative": "Story", "themes": ["theme1"]}\n\`\`\``;
+    const result = parseChapterResponse(raw);
+    expect(result).not.toBeNull();
+    expect(result?.narrative).toBe("Story");
+  });
+
+  it("returns null if narrative is missing", () => {
+    const raw = JSON.stringify({ themes: ["growth"] });
+    expect(parseChapterResponse(raw)).toBeNull();
+  });
+
+  it("returns null if themes is missing", () => {
+    const raw = JSON.stringify({ narrative: "Story" });
+    expect(parseChapterResponse(raw)).toBeNull();
+  });
+
+  it("returns null on malformed JSON without throwing", () => {
+    const raw = `{ "narrative": "Oops`;
+    expect(parseChapterResponse(raw)).toBeNull();
+  });
+
+  it("strips extra fields", () => {
+    const raw = JSON.stringify({
+      narrative: "Story",
+      themes: ["theme1"],
+      extra_field: "hidden"
+    });
+    
+    const result = parseChapterResponse(raw);
+    expect(result).not.toHaveProperty("extra_field");
+  });
+});
+
