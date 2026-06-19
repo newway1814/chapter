@@ -1,65 +1,107 @@
-import Image from "next/image";
+import { redirect } from "next/navigation";
+import { createClient } from "@/src/lib/supabase/server";
 
-export default function Home() {
+/**
+ * Dashboard — the main journaling screen.
+ * This is a Server Component: auth is checked server-side, never on the client.
+ *
+ * Issue #1 acceptance criteria: "Empty dashboard renders"
+ * Issues #2, #3, #4 will progressively fill this shell with:
+ *   - The AudioRecorder component
+ *   - The InstantInsight card
+ *   - The Chapter progress tracker
+ */
+export default async function DashboardPage() {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
+
+  if (error !== null || user === null) {
+    redirect("/login");
+  }
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="content-column py-12">
+      {/* ── Header ─────────────────────────────────────────────── */}
+      <header className="mb-12">
+        <p className="text-label-sm" style={{ color: "var(--color-text-muted)" }}>
+          Your journal
+        </p>
+        <h1 className="text-display mt-1">Chapter</h1>
+      </header>
+
+      <hr className="rule mb-12" />
+
+      {/* ── Today's prompt placeholder ──────────────────────────── */}
+      {/* Issue #3 will replace this with the real getTodayPrompt() call */}
+      <section aria-label="Today's prompt" className="mb-12">
+        <p className="text-label-sm mb-3" style={{ color: "var(--color-text-muted)" }}>
+          Today's question
+        </p>
+        <p className="text-narrative" style={{ color: "var(--color-text-primary)" }}>
+          What's one thing that surprised you today?
+        </p>
+      </section>
+
+      {/* ── Recorder placeholder ────────────────────────────────── */}
+      {/* Issue #2 will replace this with <AudioRecorder /> */}
+      <section
+        aria-label="Voice recorder"
+        className="flex flex-col items-center gap-6 py-12"
+      >
+        <button
+          id="record-button-placeholder"
+          type="button"
+          aria-label="Start recording"
+          className="btn-primary"
+          style={{ minWidth: "160px" }}
+        >
+          Record (60s)
+        </button>
+        <p
+          className="text-label-sm"
+          style={{ color: "var(--color-text-muted)" }}
+        >
+          Tap to speak. Auto-stops at 60 seconds.
+        </p>
+      </section>
+
+      <hr className="rule mb-12" />
+
+      {/* ── Chapter progress placeholder ────────────────────────── */}
+      {/* Issue #4 will replace this with <ChapterProgress /> */}
+      <section aria-label="Chapter progress">
+        <p className="text-label-sm mb-2" style={{ color: "var(--color-text-muted)" }}>
+          Progress
+        </p>
+        <p
+          className="text-narrative"
+          style={{ color: "var(--color-text-primary)" }}
+        >
+          0 of 10 entries toward your Chapter
+        </p>
+        <div
+          aria-hidden="true"
+          style={{
+            marginTop: "12px",
+            height: "2px",
+            background: "var(--color-border)",
+            width: "100%",
+          }}
+        >
+          <div
+            style={{
+              height: "100%",
+              width: "0%",
+              background: "var(--color-accent)",
+              transition: "width 400ms ease",
+            }}
+          />
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      </section>
+    </main>
   );
 }
