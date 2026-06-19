@@ -1,0 +1,392 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<title>Monthly Calendar</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;700&amp;family=Playfair+Display:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            font-feature-settings: 'liga';
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Hide scrollbar for clean aesthetic */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        body {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed": "#c2e8ff",
+                    "surface-container-highest": "#f2ded9",
+                    "surface": "#fff8f6",
+                    "error": "#ba1a1a",
+                    "surface-dim": "#e9d6d1",
+                    "on-tertiary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-primary": "#ffffff",
+                    "outline": "#8a726b",
+                    "surface-bright": "#fff8f6",
+                    "on-error": "#ffffff",
+                    "on-background": "#231916",
+                    "inverse-on-surface": "#ffede8",
+                    "surface-container-high": "#f8e4df",
+                    "tertiary-fixed-dim": "#8acff5",
+                    "inverse-primary": "#ffb59e",
+                    "surface-container-low": "#fff1ed",
+                    "on-tertiary-container": "#97daff",
+                    "on-tertiary-fixed-variant": "#004d67",
+                    "secondary-fixed": "#e8e1de",
+                    "secondary-container": "#e5dedb",
+                    "tertiary-container": "#006182",
+                    "surface-variant": "#f2ded9",
+                    "primary-fixed": "#ffdbd0",
+                    "tertiary": "#004862",
+                    "on-primary-fixed-variant": "#802a0b",
+                    "primary-container": "#993c1d",
+                    "surface-container": "#feeae4",
+                    "on-secondary": "#ffffff",
+                    "secondary": "#625d5b",
+                    "primary": "#792507",
+                    "on-surface-variant": "#56423c",
+                    "on-primary-container": "#ffc3b2",
+                    "on-primary-fixed": "#3a0b00",
+                    "surface-tint": "#9f4121",
+                    "on-surface": "#231916",
+                    "surface-container-lowest": "#ffffff",
+                    "background": "#fff8f6",
+                    "on-secondary-fixed-variant": "#4a4644",
+                    "on-tertiary-fixed": "#001e2c",
+                    "on-error-container": "#93000a",
+                    "on-secondary-container": "#66625f",
+                    "primary-fixed-dim": "#ffb59e",
+                    "outline-variant": "#ddc0b8",
+                    "secondary-fixed-dim": "#ccc5c2",
+                    "on-secondary-fixed": "#1e1b19",
+                    "inverse-surface": "#392e2a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "xl": "40px",
+                    "lg": "24px",
+                    "unit": "4px",
+                    "container-margin": "32px",
+                    "xxl": "64px",
+                    "gutter": "24px",
+                    "md": "16px",
+                    "sm": "8px",
+                    "xs": "4px"
+            },
+            "fontFamily": {
+                    "label-caps": [
+                            "DM Sans"
+                    ],
+                    "label-sm": [
+                            "DM Sans"
+                    ],
+                    "display-lg": [
+                            "Playfair Display"
+                    ],
+                    "body-md": [
+                            "Playfair Display"
+                    ],
+                    "headline-lg-mobile": [
+                            "Playfair Display"
+                    ],
+                    "headline-lg": [
+                            "Playfair Display"
+                    ],
+                    "body-lg": [
+                            "Playfair Display"
+                    ],
+                    "headline-md": [
+                            "Playfair Display"
+                    ]
+            },
+            "fontSize": {
+                    "label-caps": [
+                            "11px",
+                            {
+                                    "lineHeight": "16px",
+                                    "letterSpacing": "0.12em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "label-sm": [
+                            "13px",
+                            {
+                                    "lineHeight": "18px",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "display-lg": [
+                            "48px",
+                            {
+                                    "lineHeight": "1.1",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "body-md": [
+                            "17px",
+                            {
+                                    "lineHeight": "1.6",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-lg-mobile": [
+                            "28px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "headline-lg": [
+                            "32px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-lg": [
+                            "20px",
+                            {
+                                    "lineHeight": "1.6",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-md": [
+                            "24px",
+                            {
+                                    "lineHeight": "1.3",
+                                    "fontWeight": "500"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background antialiased flex justify-center min-h-screen">
+<!-- Mobile Frame (390px) -->
+<div class="w-full max-w-[390px] h-[844px] sm:h-screen relative bg-surface border-x border-outline-variant flex flex-col mx-auto overflow-hidden shadow-sm">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky bg-surface border-b border-outline-variant flex justify-between items-center px-container-margin py-md z-40">
+<button class="text-primary hover:opacity-70 transition-opacity flex items-center justify-center">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-label-caps text-label-caps tracking-[0.12em] text-primary">CHAPTER</h1>
+<div class="w-6"></div> <!-- Spacer for centering -->
+</header>
+<!-- Main Canvas -->
+<main class="flex-1 overflow-y-auto pb-32">
+<!-- Calendar Header -->
+<div class="flex items-center justify-between px-container-margin py-xl">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 300">chevron_left</span>
+</button>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">June</h2>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 300">chevron_right</span>
+</button>
+</div>
+<!-- Calendar Grid -->
+<div class="px-lg">
+<!-- Day Labels -->
+<div class="grid grid-cols-7 mb-lg">
+<div class="font-label-caps text-label-caps text-on-surface-variant text-center">S</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant text-center">M</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant text-center">T</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant text-center">W</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant text-center">T</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant text-center">F</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant text-center">S</div>
+</div>
+<!-- Days -->
+<!-- 
+                    States:
+                    Empty: border border-[#EAE2D5]
+                    Logged (Amber approx): bg-[#D4A373] 
+                    Logged (Teal approx): bg-[#4A7C59]
+                    Logged (Slate approx): bg-[#5C6B73]
+                    Current: border-2 border-primary
+                    Selected: bg-surface-variant ring-1 ring-outline
+                -->
+<div class="grid grid-cols-7 gap-y-md gap-x-2 justify-items-center">
+<!-- Week 1 (Starts Thursday) -->
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<button class="w-8 h-8 rounded-full border border-outline-variant flex items-center justify-center hover:bg-surface-variant transition-colors group relative">
+<span class="font-label-sm text-label-sm text-on-surface absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">1</span>
+</button>
+<button class="w-8 h-8 rounded-full bg-[#D4A373] flex items-center justify-center hover:opacity-80 transition-opacity relative group">
+<span class="font-label-sm text-label-sm text-on-primary absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">2</span>
+</button>
+<button class="w-8 h-8 rounded-full border border-outline-variant flex items-center justify-center hover:bg-surface-variant transition-colors group relative">
+<span class="font-label-sm text-label-sm text-on-surface absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">3</span>
+</button>
+<!-- Week 2 -->
+<button class="w-8 h-8 rounded-full bg-[#5C6B73] flex items-center justify-center hover:opacity-80 transition-opacity relative group">
+<span class="font-label-sm text-label-sm text-on-primary absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">4</span>
+</button>
+<button class="w-8 h-8 rounded-full border border-outline-variant flex items-center justify-center hover:bg-surface-variant transition-colors group relative">
+<span class="font-label-sm text-label-sm text-on-surface absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">5</span>
+</button>
+<button class="w-8 h-8 rounded-full bg-[#4A7C59] flex items-center justify-center hover:opacity-80 transition-opacity relative group">
+<span class="font-label-sm text-label-sm text-on-primary absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">6</span>
+</button>
+<button class="w-8 h-8 rounded-full border border-outline-variant flex items-center justify-center hover:bg-surface-variant transition-colors group relative">
+<span class="font-label-sm text-label-sm text-on-surface absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">7</span>
+</button>
+<button class="w-8 h-8 rounded-full bg-[#D4A373] flex items-center justify-center hover:opacity-80 transition-opacity relative group">
+<span class="font-label-sm text-label-sm text-on-primary absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">8</span>
+</button>
+<button class="w-8 h-8 rounded-full border border-outline-variant flex items-center justify-center hover:bg-surface-variant transition-colors group relative">
+<span class="font-label-sm text-label-sm text-on-surface absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">9</span>
+</button>
+<button class="w-8 h-8 rounded-full border border-outline-variant flex items-center justify-center hover:bg-surface-variant transition-colors group relative">
+<span class="font-label-sm text-label-sm text-on-surface absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">10</span>
+</button>
+<!-- Week 3 -->
+<button class="w-8 h-8 rounded-full border border-outline-variant flex items-center justify-center hover:bg-surface-variant transition-colors group relative">
+<span class="font-label-sm text-label-sm text-on-surface absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">11</span>
+</button>
+<button class="w-8 h-8 rounded-full bg-[#5C6B73] flex items-center justify-center hover:opacity-80 transition-opacity relative group">
+<span class="font-label-sm text-label-sm text-on-primary absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">12</span>
+</button>
+<button class="w-8 h-8 rounded-full border border-outline-variant flex items-center justify-center hover:bg-surface-variant transition-colors group relative">
+<span class="font-label-sm text-label-sm text-on-surface absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">13</span>
+</button>
+<!-- Current Day Selected -->
+<button class="w-8 h-8 rounded-full bg-[#4A7C59] border-2 border-primary flex items-center justify-center relative group">
+<span class="font-label-sm text-label-sm text-on-primary absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">14</span>
+</button>
+<button class="w-8 h-8 rounded-full border border-outline-variant flex items-center justify-center hover:bg-surface-variant transition-colors group relative">
+<span class="font-label-sm text-label-sm text-on-surface absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">15</span>
+</button>
+<button class="w-8 h-8 rounded-full border border-outline-variant flex items-center justify-center hover:bg-surface-variant transition-colors group relative">
+<span class="font-label-sm text-label-sm text-on-surface absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">16</span>
+</button>
+<button class="w-8 h-8 rounded-full bg-[#D4A373] flex items-center justify-center hover:opacity-80 transition-opacity relative group">
+<span class="font-label-sm text-label-sm text-on-primary absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">17</span>
+</button>
+<!-- Week 4 -->
+<button class="w-8 h-8 rounded-full border border-outline-variant flex items-center justify-center hover:bg-surface-variant transition-colors group relative">
+<span class="font-label-sm text-label-sm text-on-surface absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">18</span>
+</button>
+<button class="w-8 h-8 rounded-full border border-outline-variant flex items-center justify-center hover:bg-surface-variant transition-colors group relative">
+<span class="font-label-sm text-label-sm text-on-surface absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">19</span>
+</button>
+<button class="w-8 h-8 rounded-full border border-outline-variant flex items-center justify-center hover:bg-surface-variant transition-colors group relative">
+<span class="font-label-sm text-label-sm text-on-surface absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">20</span>
+</button>
+<button class="w-8 h-8 rounded-full bg-[#5C6B73] flex items-center justify-center hover:opacity-80 transition-opacity relative group">
+<span class="font-label-sm text-label-sm text-on-primary absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">21</span>
+</button>
+<button class="w-8 h-8 rounded-full border border-outline-variant flex items-center justify-center hover:bg-surface-variant transition-colors group relative">
+<span class="font-label-sm text-label-sm text-on-surface absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">22</span>
+</button>
+<button class="w-8 h-8 rounded-full border border-outline-variant flex items-center justify-center hover:bg-surface-variant transition-colors group relative">
+<span class="font-label-sm text-label-sm text-on-surface absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">23</span>
+</button>
+<button class="w-8 h-8 rounded-full border border-outline-variant flex items-center justify-center hover:bg-surface-variant transition-colors group relative">
+<span class="font-label-sm text-label-sm text-on-surface absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">24</span>
+</button>
+<!-- Week 5 -->
+<button class="w-8 h-8 rounded-full border border-outline-variant flex items-center justify-center hover:bg-surface-variant transition-colors group relative">
+<span class="font-label-sm text-label-sm text-on-surface absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">25</span>
+</button>
+<button class="w-8 h-8 rounded-full border border-outline-variant flex items-center justify-center hover:bg-surface-variant transition-colors group relative">
+<span class="font-label-sm text-label-sm text-on-surface absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">26</span>
+</button>
+<button class="w-8 h-8 rounded-full border border-outline-variant flex items-center justify-center hover:bg-surface-variant transition-colors group relative">
+<span class="font-label-sm text-label-sm text-on-surface absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">27</span>
+</button>
+<button class="w-8 h-8 rounded-full border border-outline-variant flex items-center justify-center hover:bg-surface-variant transition-colors group relative">
+<span class="font-label-sm text-label-sm text-on-surface absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">28</span>
+</button>
+<button class="w-8 h-8 rounded-full border border-outline-variant flex items-center justify-center hover:bg-surface-variant transition-colors group relative">
+<span class="font-label-sm text-label-sm text-on-surface absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">29</span>
+</button>
+<button class="w-8 h-8 rounded-full border border-outline-variant flex items-center justify-center hover:bg-surface-variant transition-colors group relative">
+<span class="font-label-sm text-label-sm text-on-surface absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">30</span>
+</button>
+<div></div>
+</div>
+</div>
+<!-- Selection Panel (Quote Preview) -->
+<div class="mt-xl mx-lg p-lg border border-outline-variant bg-[#F5F0E8] relative flex flex-col gap-sm">
+<!-- Decorative top left notch/corner detail often found in editorial print -->
+<div class="absolute top-0 left-0 w-2 h-2 border-t border-l border-outline -ml-[1px] -mt-[1px]"></div>
+<div class="flex items-center gap-2 mb-2">
+<span class="w-2 h-2 rounded-full bg-[#4A7C59]"></span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">JUNE 14</span>
+</div>
+<p class="font-body-lg text-body-lg text-on-surface italic leading-relaxed">
+                    "The quiet of the morning feels different today. Like a blank page waiting, unhurried."
+                </p>
+<button class="mt-4 self-start font-label-caps text-label-caps text-primary border-b border-primary pb-1 hover:opacity-70 transition-opacity">
+                    READ ENTRY
+                </button>
+</div>
+<!-- Spacing for bottom nav -->
+<div class="h-24"></div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full max-w-[390px] z-50 flex justify-around items-center px-lg pb-lg pt-sm border-t border-outline-variant bg-surface">
+<!-- Inactive: Record -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant pt-2 hover:text-primary transition-colors group">
+<span class="material-symbols-outlined mb-1 group-hover:scale-95 transition-transform" style="font-variation-settings: 'wght' 300">mic</span>
+<span class="font-label-caps text-label-caps">RECORD</span>
+</button>
+<!-- Active: Calendar -->
+<button class="flex flex-col items-center justify-center text-primary border-t-2 border-primary pt-2 scale-95 transition-transform">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1, 'wght' 400">calendar_month</span>
+<span class="font-label-caps text-label-caps tracking-[0.12em]">CALENDAR</span>
+</button>
+<!-- Inactive: Stories -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant pt-2 hover:text-primary transition-colors group">
+<span class="material-symbols-outlined mb-1 group-hover:scale-95 transition-transform" style="font-variation-settings: 'wght' 300">auto_stories</span>
+<span class="font-label-caps text-label-caps">STORIES</span>
+</button>
+</nav>
+</div>
+</body></html>
+

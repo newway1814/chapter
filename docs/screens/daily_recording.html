@@ -1,0 +1,183 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Daily Recording - Chapter</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&amp;family=DM+Sans:wght@500;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "tertiary-fixed": "#c2e8ff",
+                        "surface-container-highest": "#f2ded9",
+                        "surface": "#fff8f6",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#e9d6d1",
+                        "on-tertiary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "outline": "#8a726b",
+                        "surface-bright": "#fff8f6",
+                        "on-error": "#ffffff",
+                        "on-background": "#231916",
+                        "inverse-on-surface": "#ffede8",
+                        "surface-container-high": "#f8e4df",
+                        "tertiary-fixed-dim": "#8acff5",
+                        "inverse-primary": "#ffb59e",
+                        "surface-container-low": "#fff1ed",
+                        "on-tertiary-container": "#97daff",
+                        "on-tertiary-fixed-variant": "#004d67",
+                        "secondary-fixed": "#e8e1de",
+                        "secondary-container": "#e5dedb",
+                        "tertiary-container": "#006182",
+                        "surface-variant": "#f2ded9",
+                        "primary-fixed": "#ffdbd0",
+                        "tertiary": "#004862",
+                        "on-primary-fixed-variant": "#802a0b",
+                        "primary-container": "#993c1d",
+                        "surface-container": "#feeae4",
+                        "on-secondary": "#ffffff",
+                        "secondary": "#625d5b",
+                        "primary": "#792507",
+                        "on-surface-variant": "#56423c",
+                        "on-primary-container": "#ffc3b2",
+                        "on-primary-fixed": "#3a0b00",
+                        "surface-tint": "#9f4121",
+                        "on-surface": "#231916",
+                        "surface-container-lowest": "#ffffff",
+                        "background": "#fff8f6",
+                        "on-secondary-fixed-variant": "#4a4644",
+                        "on-tertiary-fixed": "#001e2c",
+                        "on-error-container": "#93000a",
+                        "on-secondary-container": "#66625f",
+                        "primary-fixed-dim": "#ffb59e",
+                        "outline-variant": "#ddc0b8",
+                        "secondary-fixed-dim": "#ccc5c2",
+                        "on-secondary-fixed": "#1e1b19",
+                        "inverse-surface": "#392e2a"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    spacing: {
+                        "xl": "40px",
+                        "lg": "24px",
+                        "unit": "4px",
+                        "container-margin": "32px",
+                        "xxl": "64px",
+                        "gutter": "24px",
+                        "md": "16px",
+                        "sm": "8px",
+                        "xs": "4px"
+                    },
+                    fontFamily: {
+                        "label-caps": ["DM Sans"],
+                        "label-sm": ["DM Sans"],
+                        "display-lg": ["Playfair Display"],
+                        "body-md": ["Playfair Display"],
+                        "headline-lg-mobile": ["Playfair Display"],
+                        "headline-lg": ["Playfair Display"],
+                        "body-lg": ["Playfair Display"],
+                        "headline-md": ["Playfair Display"]
+                    },
+                    fontSize: {
+                        "label-caps": ["11px", { lineHeight: "16px", letterSpacing: "0.12em", fontWeight: "700" }],
+                        "label-sm": ["13px", { lineHeight: "18px", fontWeight: "500" }],
+                        "display-lg": ["48px", { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "body-md": ["17px", { lineHeight: "1.6", fontWeight: "400" }],
+                        "headline-lg-mobile": ["28px", { lineHeight: "1.2", fontWeight: "600" }],
+                        "headline-lg": ["32px", { lineHeight: "1.2", fontWeight: "600" }],
+                        "body-lg": ["20px", { lineHeight: "1.6", fontWeight: "400" }],
+                        "headline-md": ["24px", { lineHeight: "1.3", fontWeight: "500" }]
+                    },
+                    keyframes: {
+                        breathe: {
+                            '0%, 100%': { transform: 'scale(1)' },
+                            '50%': { transform: 'scale(1.04)' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        waveform: {
+                            '0%': { transform: 'scaleY(0.5)' },
+                            '50%': { transform: 'scaleY(1)' },
+                            '100%': { transform: 'scaleY(0.5)' },
+                        }
+                    },
+                    animation: {
+                        breathe: 'breathe 3s ease-in-out infinite',
+                        fadeInUp1: 'fadeInUp 0.6s ease-out 0.2s forwards',
+                        fadeInUp2: 'fadeInUp 0.6s ease-out 0.4s forwards',
+                        fadeInUp3: 'fadeInUp 0.6s ease-out 0.6s forwards',
+                        fadeInUp4: 'fadeInUp 0.6s ease-out 0.8s forwards',
+                        waveform: 'waveform 1s ease-in-out infinite alternate',
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #FAF7F2;
+        }
+        .waveform-bar {
+            width: 3px;
+            background-color: #993C1D;
+            border-radius: 9999px;
+            margin: 0 2px;
+            display: inline-block;
+        }
+        .waveform-bar:nth-child(odd) { animation-duration: 0.8s; }
+        .waveform-bar:nth-child(even) { animation-duration: 1.2s; }
+        .waveform-bar:nth-child(3n) { animation-duration: 0.9s; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-background flex flex-col min-h-screen">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky border-b border-outline-variant dark:border-outline flex justify-between items-center px-container-margin py-md max-w-7xl mx-auto z-40 bg-[#FAF7F2]">
+
+<h1 class="font-label-caps text-label-caps tracking-[0.12em] text-primary dark:text-primary-fixed-dim uppercase text-center flex-grow">CHAPTER</h1>
+<div class="w-6 h-6"></div> <!-- Spacer for centering -->
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex flex-col items-center justify-center px-container-margin py-xxl pb-32">
+<!-- Date Header -->
+<div class="text-center mb-16 opacity-0 animate-[fadeInUp_0.6s_ease-out_0.2s_forwards]">
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-[0.15em]">Saturday, June 20</p>
+</div>
+<!-- Centerpiece Recording Button -->
+<div class="relative flex flex-col items-center justify-center w-full mb-12 opacity-0 animate-[fadeInUp_0.6s_ease-out_0.4s_forwards]">
+<!-- Outer Ripple Effect (Optional, simulated with stacked divs or box shadow if desired, but keeping to 2D flat depth) -->
+<button class="w-40 h-40 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center animate-breathe hover:bg-primary transition-colors duration-300 shadow-none border border-transparent">
+<span class="material-symbols-outlined text-[64px]" style="font-variation-settings: 'FILL' 1;">mic</span>
+</button>
+</div>
+<!-- Visual Feedback Waveform -->
+<div class="h-16 flex items-center justify-center opacity-0 animate-[fadeInUp_0.6s_ease-out_0.6s_forwards] mb-12 w-full max-w-xs">
+<!-- Simulated vector path waveform with CSS bars -->
+<div class="flex items-end h-12 justify-center w-full space-x-1"><svg viewBox="0 0 200 40" class="w-full h-full overflow-visible"><path d="M0 20 Q 25 0, 50 20 T 100 20 T 150 20 T 200 20" fill="none" stroke="#993C1D" stroke-width="1.5" class="animate-waveform"></path></svg></div>
+</div>
+<!-- Footer Text -->
+<div class="text-center px-lg opacity-0 animate-[fadeInUp_0.6s_ease-out_0.8s_forwards] max-w-sm">
+<p class="font-body-md text-body-md text-on-surface-variant italic">Speak your mind. We will transcribe your chapter.</p>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-lg pb-lg pt-sm border-t border-outline-variant dark:border-outline bg-[#FAF7F2]"><!-- RECORD --><a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim pt-2 w-1/3 hover:opacity-70 transition-opacity" href="#"><span class="material-symbols-outlined mb-1 !font-light" style="font-variation-settings: 'FILL' 0, 'wght' 200;">mic</span><span class="font-label-caps text-[10px] tracking-widest uppercase">RECORD</span></a><!-- CALENDAR --><a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant pt-2 w-1/3 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#"><span class="material-symbols-outlined mb-1 !font-light" style="font-variation-settings: 'FILL' 0, 'wght' 200;">calendar_month</span><span class="font-label-caps text-[10px] tracking-widest uppercase">CALENDAR</span></a><!-- STORIES --><a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant pt-2 w-1/3 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#"><span class="material-symbols-outlined mb-1 !font-light" style="font-variation-settings: 'FILL' 0, 'wght' 200;">auto_stories</span><span class="font-label-caps text-[10px] tracking-widest uppercase">STORIES</span></a></nav>
+
+
+</body></html>
+
