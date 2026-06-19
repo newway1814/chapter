@@ -1,6 +1,8 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/src/lib/supabase/server";
 import { RecorderWrapper } from "@/src/components/RecorderWrapper";
+import { ChapterProgress } from "@/src/components/ChapterProgress";
+import { getEntriesInWindow, getTodayPrompt } from "@/src/lib/db";
 
 /**
  * Dashboard — the main journaling screen.
@@ -24,6 +26,14 @@ export default async function DashboardPage() {
     redirect("/login");
   }
 
+  const [entries, dailyPrompt] = await Promise.all([
+    getEntriesInWindow(supabase, user.id),
+    getTodayPrompt(supabase, user.id),
+  ]);
+
+  const defaultPrompt = "What's one thing that surprised you today?";
+  const currentPrompt = dailyPrompt || defaultPrompt;
+
   return (
     <main className="content-column py-12">
       {/* ── Header ─────────────────────────────────────────────── */}
@@ -36,14 +46,13 @@ export default async function DashboardPage() {
 
       <hr className="rule mb-12" />
 
-      {/* ── Today's prompt placeholder ──────────────────────────── */}
-      {/* Issue #3 will replace this with the real getTodayPrompt() call */}
+      {/* ── Today's prompt ────────────────────────────────────────── */}
       <section aria-label="Today's prompt" className="mb-12">
         <p className="text-label-sm mb-3" style={{ color: "var(--color-text-muted)" }}>
           Today's question
         </p>
         <p className="text-narrative" style={{ color: "var(--color-text-primary)" }}>
-          What's one thing that surprised you today?
+          {currentPrompt}
         </p>
       </section>
 
@@ -58,37 +67,8 @@ export default async function DashboardPage() {
 
       <hr className="rule mb-12" />
 
-      {/* ── Chapter progress placeholder ────────────────────────── */}
-      {/* Issue #4 will replace this with <ChapterProgress /> */}
-      <section aria-label="Chapter progress">
-        <p className="text-label-sm mb-2" style={{ color: "var(--color-text-muted)" }}>
-          Progress
-        </p>
-        <p
-          className="text-narrative"
-          style={{ color: "var(--color-text-primary)" }}
-        >
-          0 of 10 entries toward your Chapter
-        </p>
-        <div
-          aria-hidden="true"
-          style={{
-            marginTop: "12px",
-            height: "2px",
-            background: "var(--color-border)",
-            width: "100%",
-          }}
-        >
-          <div
-            style={{
-              height: "100%",
-              width: "0%",
-              background: "var(--color-accent)",
-              transition: "width 400ms ease",
-            }}
-          />
-        </div>
-      </section>
+      {/* ── Chapter progress ──────────────────────────────────────── */}
+      <ChapterProgress entryCount={entries.length} />
     </main>
   );
 }
